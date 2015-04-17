@@ -1,39 +1,97 @@
 package edu.jsu.mcis;
 
+import java.util.ArrayList;
+
 public class Argument {
 
-	private enum DataType {STRING, FLOAT, INT, BOOLEAN};
-
-	public String name = "";
-	public String value = "";
-	public String info = "";
-	public String type = "";
+	protected String name = "";
+ 	protected String value = "";
+	protected String info = "";
+	protected Datatype type = Datatype.STRING;
+	protected enum Datatype {STRING, FLOAT, INTEGER, BOOLEAN,DOUBLE};
+	protected boolean containsRestrictedValues = false;
+	protected ArrayList<String> restrictedValues = new ArrayList<>();
+	protected boolean required = false;
+	protected ArrayList<String> values = new ArrayList<>();
 	
-	String getName(){
+	public Argument() {
+		values.add("0");
+	}
+	
+	public String getName(){
 		return name;
 	}
 	
-	void setValue(String v){
-		value = v;
+	public void addValue(String v) {
+		if(values.get(0) == "0") {
+			values.set(0, v);
+		}
+		else if(!values.contains(v)) {
+			values.add(v);
+		}
 	}
 	
-	String getValue(){
-		return value;
+	public String getValue(int v){
+		return values.get(v);
 	}
 	
-	void setInfo(String i){
+	public void replaceValue(String v, int i) {
+		if(values.size() >= i) {
+			values.set(i, v);
+		}
+	}
+	
+	public ArrayList<String> getValues() {
+		return values;
+	}
+	
+	public void setInfo(String i){
 		info = i;
 	}
 	
-	String getInfo(){
+	public String getInfo(){
 		return info;
 	}
 	
-	void setDataType(String d) {
+	public void setDatatype(Datatype d) {
 		type = d;
 	}
 	
-	String getDataType() {
+	public Datatype getDatatype() {
 		return type;
+	}
+	
+	public void addRestrictedValue(String c) {
+		restrictedValues.add(c);
+	}
+	
+	public ArrayList<String> getRestrictedValues() {
+		return restrictedValues;
+	}
+
+	public void setRestrictedValues(boolean r) {
+		containsRestrictedValues = r;
+	}
+	
+	public boolean hasRestrictedValues() {
+		return containsRestrictedValues;
+	}
+	
+	public void isRestrictedValue(String v) {
+		if(containsRestrictedValues) {
+		boolean found = false;
+		if(restrictedValues.contains(v))
+			found = true;
+		else
+			throw new RestrictedValueException("\nUsage: Java VolumeCalculator length width height \nVolumeCalculator.Java: error: Invalid restricted value: " + v);
+		}
+	}
+	
+	public void setRequired(boolean r) {
+		required = r;
+	}
+	
+	public boolean isRequired() {
+		return required;
 	}
 }

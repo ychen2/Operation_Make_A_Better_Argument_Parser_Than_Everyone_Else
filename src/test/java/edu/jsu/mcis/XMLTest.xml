@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arguments>
+	<argument type = "positional">
+		<name>length</name>
+		<values>
+			<value>7</value>
+		</values>
+		<type>String</type>
+		<description></description>
+	</argument>
+	<argument type = "named">
+		<name>color</name>
+		<values>
+			<value>red</value>
+		</values>
+		<restrictedValues>
+			<restrictedValue>red</restrictedValue>
+			<restrictedValue>red</restrictedValue>
+		</restrictedValues>
+		<type>String</type>
+		<description>color's value is a string.</description>
+		<group>group1</group>
+		<required>true</required>
+	</argument>
+</arguments>
